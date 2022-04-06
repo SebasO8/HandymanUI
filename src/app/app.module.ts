@@ -12,10 +12,12 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { MainSectionComponent } from './components/main-section/main-section.component';
 import { FooterComponent } from './components/footer/footer.component';
 
-//materialize components
+//materialize
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -33,6 +35,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

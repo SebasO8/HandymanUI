@@ -1,0 +1,42 @@
+<div class="service-report">
+    <div class="imgContainer">
+        <img class="img" src="../../../../assets/img/HandymanLogo.png" alt="HandyMan logo" />
+    </div>
+    <div class="form-container">
+        <form [formGroup]="form" class="form-content">
+            <mat-form-field appearance="fill" class="input-form">
+                <mat-label >Seleccione el tecnico</mat-label>
+                <mat-select formControlName="technicianId">
+                    <mat-option *ngFor="let technician of technicians" value={{technician.id}}>{{technician.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="input-form">
+                <mat-label>Seleccione el servicio</mat-label>
+                <mat-select formControlName="serviceId">
+                    <mat-option *ngFor="let service of services" value={{service.id}}>{{service.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="inputContainer">
+                <mat-form-field appearance="fill" class="input-form">
+                    <mat-label>Fecha inicial</mat-label>
+                    <input formControlName="startDate" matInput type="date">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="input-form">
+                    <mat-label>Hora inicial</mat-label>
+                    <input formControlName="startHour" matInput type="time">
+                </mat-form-field>
+            </div>
+            <div class="inputContainer">
+                <mat-form-field appearance="fill" class="input-form">
+                    <mat-label>Fecha final</mat-label>
+                    <input formControlName="finalDate" matInput type="date">
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="input-form">
+                    <mat-label>Hora final</mat-label>
+                    <input formControlName="finalHour" matInput type="time">
+                </mat-form-field>
+            </div>
+            <button mat-flat-button class="btn" color="primary" (click)="onClickSubmit()" [disabled]="form.invalid">Reportar</button>
+        </form>
+    </div>
+</div>

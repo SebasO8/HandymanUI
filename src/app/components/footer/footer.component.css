@@ -1,0 +1,10 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.footer{
+    height: 10vh;
+    display: flex;
+    align-self: self-end;
+    background-color: #4285B0;
+}
