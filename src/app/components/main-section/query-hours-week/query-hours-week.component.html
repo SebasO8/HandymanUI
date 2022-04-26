@@ -1,1 +1,129 @@
-<p>query-hours-week works!</p>
+<div class="query-hours-week-content">
+    <div class="query-and-hours-section">
+        <div class="hours">
+            <mat-grid-list cols="3" rowHeight="2:1" role="list">
+                <mat-grid-tile>
+                    <div class="content-grid">
+                        HORAS NORMALES
+                        <div class="hours-counter">
+                            0
+                        </div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="content-grid">
+                        HORAS NOCTURNAS
+                        <div class="hours-counter">
+                            0
+                        </div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="content-grid">
+                        HORAS DOMINICALES
+                        <div class="hours-counter">
+                            0
+                        </div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="content-grid">
+                        HORAS NORMALES EXTRA
+                        <div class="hours-counter">
+                            0
+                        </div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="content-grid">
+                        HORAS NOCTURNAS EXTRA
+                        <div class="hours-counter">
+                            0
+                        </div>
+                    </div>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <div class="content-grid">
+                        HORAS DOMINICALES
+                        <div class="hours-counter">
+                            0
+                        </div>
+                    </div>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+        <div class="query-hours-week-list">
+            <div class="query-hours-list-content">
+                <h2>Servicios realizados por semana</h2>
+                <div class="query-hours-list-content-container" *ngIf="serviceReports.length >= 0 else noDates">
+                    <div class="ul-container" *ngFor="let service of serviceReports">
+                        <p class="day-of-week" *ngIf="service.startDay == 1">{{"LUNES " + service.startDate.slice(8,10) + " DE " + months[(this.toNumber(service.startDate.slice(5,7)) - 1)] }}</p>
+                        <p class="day-of-week" *ngIf="service.startDay == 2">{{"MARTES " + service.startDate.slice(8,10) + " DE " + months[(this.toNumber(service.startDate.slice(5,7)) - 1)] }}</p>
+                        <p class="day-of-week" *ngIf="service.startDay == 3">{{"MIERCOLES " + service.startDate.slice(8,10) + " DE " + months[(this.toNumber(service.startDate.slice(5,7)) - 1)] }}</p>
+                        <p class="day-of-week" *ngIf="service.startDay == 4">{{"JUEVES " + service.startDate.slice(8,10) + " DE " + months[(this.toNumber(service.startDate.slice(5,7)) - 1)] }}</p>
+                        <p class="day-of-week" *ngIf="service.startDay == 5">{{"VIERNES " + service.startDate.slice(8,10) + " DE " + months[(this.toNumber(service.startDate.slice(5,7)) - 1)] }}</p>
+                        <p class="day-of-week" *ngIf="service.startDay == 6">{{"SABADO " + service.startDate.slice(8,10) + " DE " + months[(this.toNumber(service.startDate.slice(5,7)) - 1)] }}</p>
+                        <p class="day-of-week" *ngIf="service.startDay == 7">{{"DOMINGO " + service.startDate.slice(8,10) + " DE " + months[(this.toNumber(service.startDate.slice(5,7)) - 1)] }}</p>
+                        <ul>
+                            <div class="li-container" >
+                                <label> Fecha de inicio </label>
+                                <li>{{months[this.toNumber(service.startDate.slice(5,7)) - 1] + " " + service.startDate.slice(8,10) + " A LAS " + service.startDate.slice(11,16)}}</li>
+                                <label> Fecha de fin</label>
+                                <li>{{months[this.toNumber(service.startDate.slice(5,7)) - 1] + " " + service.finalDate.slice(8,10) + " A LAS " + service.finalDate.slice(11,16)}}</li>
+                            </div>
+                            
+                        </ul>
+                    </div>
+                </div>
+                <ng-template #noDates>
+                    <div class="query-hours-list-content-container" *ngFor="let day of daysOfWeek">
+                        <p class="day-of-week" *ngIf="day == 1">LUNES</p>
+                        <p class="day-of-week" *ngIf="day == 2">MARTES</p>
+                        <p class="day-of-week" *ngIf="day == 3">MIERCOLES</p>
+                        <p class="day-of-week" *ngIf="day == 4">JUEVES</p>
+                        <p class="day-of-week" *ngIf="day == 5">VIERNES</p>
+                        <p class="day-of-week" *ngIf="day == 6">SABADO</p>
+                        <p class="day-of-week" *ngIf="day == 7">DOMINGO</p>
+                        <div class="ul-container">
+                            <ul>
+                                <li></li>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                </ng-template>
+                <!-- <p>LUNES:</p>
+                <ul *ngIf="serviceReports.length > 1 else noDates">
+                    <li>2022-1</li>
+                    <li>2022</li>
+                </ul>
+                <ng-template #noDates>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </ng-template> -->
+            </div>
+        </div>
+    </div>
+    <div class="form-section">
+        <form [formGroup]="formQueryHours" class="form-query-hours">
+            <img src="../../../../assets/img/quey-Hours.jpg" alt="" width="70%">
+            <mat-form-field appearance="fill" class="form-input">
+                <mat-label>Identificacion del tecnico</mat-label>
+                <mat-select formControlName="technicianId">
+                    <mat-option *ngFor="let technician of technicians" value={{technician.id}}>{{technician.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="form-input">
+                <mat-label>Numero de semana</mat-label>
+                <mat-select formControlName="weekNumber">
+                    <mat-option *ngFor="let number of weekNumberArray" value={{number}}>{{number}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-flat-button class="btn" (click)="onClickSubmitReport()"
+                [disabled]="formQueryHours.invalid">Consultar</button>
+        </form>
+    </div>
+</div>

@@ -39,3 +39,8 @@
 .input-form{
     width: 45%;
 }
+
+.btn{
+    background-color: #4285B0;
+    color: #fff;
+}

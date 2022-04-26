@@ -22,7 +22,7 @@ import { TechnicianService } from 'src/app/shared/services/technician-service/te
 import { ServicesService } from 'src/app/shared/services/services-service/services.service';
 import { ServiceReportService } from 'src/app/shared/services/serviceReport-service/service-report.service';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatGridListModule,
   ],
   providers: [TechnicianService, ServicesService, ServiceReportService],
 })

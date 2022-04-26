@@ -85,10 +85,11 @@ export class ServiceReportFormComponent implements OnInit, OnDestroy {
     if (dateisValid) {
       let serviceReport = this.parseServiReport(report);
       this.suscribeServiceReport$ = this.postServiceReport(serviceReport).subscribe();
+      this.openSnackBar(`Se guardo el reporte de servicio`);
       this.form.reset();
       this.suscribeServiceReport$.unsubscribe();
     } else {
-      this.openSnackBar("La fecha final no puede ser mayor a la fecha inicial");
+      this.openSnackBar("La fecha final no puede ser mayor a la fecha inicial y el tiempo del servicio no puede ser mayor a 10 horas");
       this.form.reset();
     }
   }
@@ -98,33 +99,13 @@ export class ServiceReportFormComponent implements OnInit, OnDestroy {
     let finalDateParse = this.getDates(report.finalDate, report.finalHour);
     let startDate = this.parseDate(starDateParse);
     let finalDate = this.parseDate(finalDateParse);
-    if (startDate <= finalDate) {
+    let hoursOfServices = ((finalDate.getTime() - startDate.getTime()) / 6000)/60;
+    console.log("hora de servicios: " + hoursOfServices)
+    if (startDate <= finalDate && hoursOfServices <= 100) {
       return true
-    } else {
+    }else {
       return false;
     }
-  }
-
-  parseServiReport(report: ServiceReportUIModel) {
-    return {
-      technicianId: report.technicianId,
-      serviceId: report.serviceId,
-      startDate: `${report.startDate}T${report.startHour}`,
-      finalDate: `${report.finalDate}T${report.finalHour}`
-    }
-  }
-
-  postServiceReport(body: ServiceReportModel): Observable<ServiceReportModel> {
-    return this.serviceReportService.postServiceReport(body).pipe(
-      tap((serviceReport) => {
-        this.openSnackBar(`Se guardo el reporte de servicio ${serviceReport.id}`);
-      }),
-      catchError((error: HttpErrorResponse) => {
-        console.log('Executin error...', error)
-        alert('Error al consumir el servicio');
-        return throwError(error);
-      })
-    );
   }
 
   getDates(date: String, hours: String): DateModel {
@@ -144,6 +125,28 @@ export class ServiceReportFormComponent implements OnInit, OnDestroy {
       Number(date.inicialDay),
       Number(date.hour),
       Number(date.min),
+    );
+  }
+
+  parseServiReport(report: ServiceReportUIModel) {
+    return {
+      technicianId: report.technicianId,
+      serviceId: report.serviceId,
+      startDate: `${report.startDate}T${report.startHour}`,
+      finalDate: `${report.finalDate}T${report.finalHour}`
+    }
+  }
+
+  postServiceReport(body: ServiceReportModel): Observable<ServiceReportModel> {
+    return this.serviceReportService.postServiceReport(body).pipe(
+      tap((serviceReport) => {
+        alert('Se guardo el reporte de servicio');
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log('Executin error...', error)
+        alert('Error al consumir el servicio');
+        return throwError(error);
+      })
     );
   }
 

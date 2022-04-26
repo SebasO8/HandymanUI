@@ -4,6 +4,8 @@ export interface ServiceReportModel {
     serviceId:    String;
     startDate:    String;
     finalDate:    String;
+    startDay?:    Number;
+    finalDay?:    Number;
 }
 
 export interface ServiceReportUIModel {
@@ -21,4 +23,9 @@ export interface DateModel {
     inicialDay:   String;
     hour:         String;
     min:          String;
+}
+
+export interface weekQuery {
+    technicianId: String;
+    weekNumber:   String;
 }
